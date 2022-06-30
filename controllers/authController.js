@@ -1,5 +1,6 @@
 const User = require("../model/user")
 
+
 exports.logout = (req, res) => {
     req.session.isLoggedIn = false;
     res.redirect("/");
@@ -27,6 +28,7 @@ exports.postSignUp = async (req, res) => {
 }
 
 exports.postLogin = async (req, res) => {
+    console.log("postLogin");
     console.log(req.body.email, req.body.password)
     let user = await User.findOne({email: req.body.email, password: req.body.password});
 
@@ -35,11 +37,9 @@ exports.postLogin = async (req, res) => {
         res.redirect("/");
     } else 
         res.send("Wrong input")
-
-    
-
 }
 
 exports.getLogin = (req, res) => { // res.setHeader('Set-Cookie','isLogged=True')
+    console.log("getLogin called");
     res.render("login");
 }
